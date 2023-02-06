@@ -18,6 +18,7 @@ import {
   findUser,
   verifyUser,
 } from './models/privateRoom.model.js';
+import moment from 'moment';
 
 const app = express();
 
@@ -103,8 +104,10 @@ io.on('connection', async (socket) => {
   socket.on('new message', (room, message, name) => {
     console.log('room, message, name', room, message, name);
     io.to(room).emit('new message', {
+      id: socket.id,
       message: message,
       name: name,
+      time: moment().format('LT'),
     });
   });
   socket.on('getroominfo', (room) => {
