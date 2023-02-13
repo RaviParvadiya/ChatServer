@@ -14,7 +14,6 @@ export const userJoin = (id, username, room) => {
 // Get room users
 export const getRoomUsers = (room) => {
   const data = users.filter((user) => user.room === room);
-  console.log('data',data);
   return data;
 };
 
