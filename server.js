@@ -138,25 +138,6 @@ io.on("connection", async (socket) => {
   socket.emit("allRooms", allRoomsData);
 
   // Runs when client disconnects
-/*   socket.on("disconnect", () => {
-    console.log(`user disconnected ${socket.id}`);
-    const user = userLeave(socket.id);
-    if (user) {
-      console.log("userleave", user.room);
-      user.forEach((user) => {
-        io.to(user.room).emit(
-          "disconnectmessage",
-          formatMessage(user.username, 'has left the chat')
-        );
-      });
-      // Send users and room info
-      io.to(user.room).emit("roomUsers", {
-        room: user.room,
-        users: getRoomUsers(user.room),
-      });
-    }
-  }); */
-
   socket.on("leaveRoom", () => {
     console.log(`user leaving room ${socket.id}`);
     const user = userLeave(socket.id);

@@ -3,9 +3,12 @@ const users = [];
 // Join user to chat
 export const userJoin = (id, username, room) => {
   const user = { id, username, room };
-  const index = users.findIndex((user) => user.id === id);
+  const index = users.findIndex((user) => user.username === username);
   if (index === -1) {
     users.push(user);
+  } else {
+    users[index].id = id;
+    user.id = id;
   }
   console.log('joined users ', users);
   return user;
