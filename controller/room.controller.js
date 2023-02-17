@@ -8,9 +8,11 @@ export const chatRoom = async (req, res) => {
   try {
     const room = req.query.rooms;
     const finddata = await findRoom(room);
-   if(finddata) {
-    return res.status(400).send({status:false,message:'room is already registered'})
-   }
+    if (finddata) {
+      return res
+        .status(400)
+        .send({ status: false, message: 'room is already registered' });
+    }
     res.status(200).json({
       status: true,
       msg: 'you have entered in room succesfully',
