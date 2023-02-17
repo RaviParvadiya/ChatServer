@@ -128,16 +128,11 @@ io.on('connection', async (socket) => {
     socket.emit('allUser', getRoomUsers(room));
   });
 
-<<<<<<< HEAD
-  const allRoomsData = await allRooms();zzzz
-  socket.emit("allRooms", allRoomsData);
-=======
   const allRoomsData = await allRooms();
   console.log('allRooms', allRoomsData);
   socket.on('allRooms', () => {
     socket.emit('allRooms', allRoomsData);
   });
->>>>>>> e0ef9f9fc8e6bbca6ec9c820b049f42d54fc773b
 
   // Runs when client disconnects
   socket.on('leaveRoom', () => {
