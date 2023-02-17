@@ -134,7 +134,7 @@ io.on("connection", async (socket) => {
     }
   });
 
-  const allRoomsData = await allRooms();
+  const allRoomsData = await allRooms();zzzz
   socket.emit("allRooms", allRoomsData);
 
   // Runs when client disconnects
