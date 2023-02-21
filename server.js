@@ -43,7 +43,8 @@ const io = new Server(httpServer, {
 const jwtSecret = process.env.JWTSECRET;
 // authenticate user
 io.use((socket, next) => {
-  const token = socket.handshake.headers.token;
+  const token = socket.handshake.auth.token;
+  console.log('tk', token);
   if (!token) {
     return next(new Error('Authentication error no token provided'));
   } else {
@@ -129,8 +130,9 @@ io.on('connection', async (socket) => {
   });
 
   const allRoomsData = await allRooms();
-  console.log('allRooms', allRoomsData);
+  // console.log('allRooms', allRoomsData);
   socket.on('allRooms', () => {
+    console.log('rm', allRoomsData);
     socket.emit('allRooms', allRoomsData);
   });
 
