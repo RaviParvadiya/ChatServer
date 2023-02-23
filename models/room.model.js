@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const roomSchema = new mongoose.Schema(
   {
@@ -14,19 +14,24 @@ const roomSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Room = mongoose.model('rooms', roomSchema);
+const Room = mongoose.model("rooms", roomSchema);
+
+export const allRooms = async () => {
+  return await Room.find();
+};
 
 export const createRoom = async (roomname, username) => {
   const data = {};
   data.userName = username;
   data.roomName = roomname;
   const result = await Room.create(data);
-  console.log('result====', result);
+  const res = await allRooms();
+  // console.log("alr", res);
+  res.forEach(ele => {
+    console.log("ele", ele.roomName);
+  });
+  console.log("result====", result);
   return result;
-};
-
-export const allRooms = async () => {
-  return await Room.find();
 };
 
 export const findRoom = async (roomName) => {
