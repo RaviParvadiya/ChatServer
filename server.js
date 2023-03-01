@@ -95,9 +95,8 @@ io.on("connection", async (socket) => {
         username: socket.username,
         msg: `A new room ${room} has been created.`,
       });
+      io.emit("updateRooms", await allRooms());
     }
-    // socket.emit("roomname", room);
-    // socket.join(room);
   });
 
   // join room public
