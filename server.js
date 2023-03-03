@@ -122,6 +122,7 @@ io.on("connection", async (socket) => {
     socket.broadcast
       .to(user.room)
       .emit("info", formatMessage(user.username, `has joined the chat`));
+    io.emit("allUser", getRoomUsers(user.room));
   });
 
   // send and get message in public room
@@ -139,17 +140,18 @@ io.on("connection", async (socket) => {
     const result = await createMessage(data);
     console.log("result", result);
   });
-  socket.on("getroominfo", (room) => {
+  /*   socket.on("getroominfo", (room) => {
     console.log("room", room);
     socket.emit("allUser", getRoomUsers(room));
-  });
+  }); */
 
-  const allRoomsData = await allRooms();
+  /*   const allRoomsData = await allRooms();
   // console.log('allRooms', allRoomsData);
   socket.on("allRooms", () => {
     console.log("rm", allRoomsData);
     socket.emit("allRooms", allRoomsData);
-  });
+  }); */
+  io.emit("allRooms", await allRooms());
 
   // Runs when client disconnects
   socket.on("leaveRoom", () => {
@@ -162,12 +164,9 @@ io.on("connection", async (socket) => {
           "leavemessage",
           formatMessage(user.username, "has left the room")
         );
+        io.to(user.room).emit("roomUsers", getRoomUsers(user.room));
       });
       // Send users and room info
-      io.to(user.room).emit("roomUsers", {
-        room: user.room,
-        users: getRoomUsers(user.room),
-      });
     }
   });
 });
